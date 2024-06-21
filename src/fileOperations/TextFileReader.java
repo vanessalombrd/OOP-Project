@@ -1,3 +1,10 @@
+package fileOperations;
+
+import checker.TypeChecker;
+import components.table.Table;
+import components.cell.Cell;
+import components.row.Row;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -5,10 +12,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextFileReader implements Reader {
-    private final Parser parser;
+    private final TypeChecker typeChecker;
 
-    public TextFileReader(Parser parser) {
-        this.parser = parser;
+    public TextFileReader(TypeChecker typeChecker) {
+        this.typeChecker = typeChecker;
     }
 
     @Override
@@ -18,10 +25,19 @@ public class TextFileReader implements Reader {
             while (scanner.hasNext()) {
                 Row row = new Row();
                 String line = scanner.nextLine();
-                line = line.replaceAll("\\s+", "");
                 Object[] split = line.split(",");
+                for (int i = 0; i < split.length; i++) {
+
+                    String oString = (String) split[i];
+                    if (!oString.startsWith("=")) {
+                        oString = oString.replaceAll("\\s+", "");
+                        split[i] = oString;
+                    }
+                }
+//                line = line.replaceAll("\\s+", "");
+
                 // row.setCells(collect);
-                List<Cell<Object>> cells = getCells(split,table.getRows().size()+1);
+                List<Cell<Object>> cells = getCells(split, table.getRows().size() + 1);
                 fillEmptyCells(split, line, cells);
                 addEmptyCellAtEnd(line, cells);
                 row.setCells(cells);
@@ -50,20 +66,24 @@ public class TextFileReader implements Reader {
         }
     }
 
-    private List<Cell<Object>> getCells(Object[] split,int row) {
+    private List<Cell<Object>> getCells(Object[] split, int row) {
         List<Cell<Object>> cells = new ArrayList<>();
-        int count=1;
+        int column = 1;
         for (Object s : split) {
-            if (parser.checkInteger(s)) {
+            if (typeChecker.checkInteger(s)) {
                 cells.add(new Cell<>(Integer.parseInt(String.valueOf(s))));
-            } else if (parser.checkDouble(s)) {
+            } else if (typeChecker.checkDouble(s)) {
                 cells.add(new Cell<>(Double.parseDouble(String.valueOf(s))));
-            } else if(String.valueOf(s).startsWith("\"") && String.valueOf(s).endsWith("\"") || String.valueOf(s).isEmpty()) {
-                cells.add(new Cell<>(parser.checkString(s)));
-            }else{
-                System.out.printf("Error: row %d, col %d, %s is unknown data type%n",row,count,s);
+            } else if (String.valueOf(s).startsWith("\"") && String.valueOf(s).endsWith("\"") || String.valueOf(s).isEmpty()) {
+                cells.add(new Cell<>(typeChecker.checkString(s)));
+            } else if (String.valueOf(s).startsWith("=")) {
+                cells.add(new Cell<>(s));
             }
-            count++;
+
+            else {
+                System.out.printf("Error: row %d, col %d, %s is unknown data type%n", row, column, s);
+            }
+            column++;
         }
         return cells;
     }

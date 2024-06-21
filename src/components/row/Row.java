@@ -1,3 +1,7 @@
+package components.row;
+
+import components.cell.Cell;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +12,7 @@ public class Row {
         this.cells = new ArrayList<>();
     }
 
-    void addCell(Cell<Object> cell) {
+    public void addCell(Cell<Object> cell) {
         cells.add(cell);
     }
 

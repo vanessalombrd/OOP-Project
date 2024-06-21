@@ -1,4 +1,6 @@
-public class Parser {
+package checker;
+
+public class TypeChecker {
     public boolean checkDouble(Object o) {
         try {
             Double.parseDouble(String.valueOf(o));
