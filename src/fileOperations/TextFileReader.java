@@ -22,6 +22,7 @@ public class TextFileReader implements Reader {
     public void read(String file, Table table) {
         try (FileReader fileReader = new FileReader(file)) {
             Scanner scanner = new Scanner(fileReader);
+            table.setFilePath(file);
             while (scanner.hasNext()) {
                 Row row = new Row();
                 String line = scanner.nextLine();

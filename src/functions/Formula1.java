@@ -1,13 +1,18 @@
 package functions;
 
+import checker.TypeChecker;
+import components.cell.Cell;
+import components.row.Row;
 import components.table.Table;
 
 import java.util.Stack;
 
 public class Formula1 {
     private Table table;
+    private TypeChecker typeChecker;
 
     public Formula1(Table table) {
+        this.typeChecker = new TypeChecker();
         this.table = table;
     }
 
@@ -69,15 +74,17 @@ public class Formula1 {
     public double evaluateRPN(String rpn) {
         Stack<Double> stack = new Stack<>();
         for (String token : rpn.split("\\s")) {
-            if (token.contains("R")) {
-                String[] rowColumnSplit = token.split("C");
-                String row = rowColumnSplit[0].substring(1);
-                String column = rowColumnSplit[1];
-                Object value = table.getRows().get(Integer.parseInt(row)).getCells().get(Integer.parseInt(column)).getValue(); // namira stoinostta po R i C
-                token = (String) value;
-            }
+//            if (token.contains("R")) {
+//                String[] rowColumnSplit = token.split("C");
+//                String row = rowColumnSplit[0].substring(1);
+//                String column = rowColumnSplit[1];
+//                Object value = table.getRows().get(Integer.parseInt(row)).getCells().get(Integer.parseInt(column)).getValue(); // namira stoinostta po R i C
+//                token = (String) value;
+//            }
             if (token.matches("[-+]?\\d*\\.?\\d+")) {
                 stack.push(Double.parseDouble(token));
+            } else if (!token.matches("[-+]?\\d*\\.?\\d+|[-+*/^()]|\\d+\\.?\\d*")) {
+                stack.push(0.0); // neshto oshte tr se pravi
             } else {
                 double b = stack.pop();
                 double a = stack.pop();
@@ -102,7 +109,47 @@ public class Formula1 {
                 }
             }
         }
+
         return stack.pop();
+    }
+
+    public void calculator() {
+        for (Row tableRow : table.getRows()) {
+            for (Cell<Object> tableRowCell : tableRow.getCells()) {
+                String value = String.valueOf(tableRowCell.getValue());
+                if (value.startsWith("=")) {
+                    String[] split = value.split("\\s+");
+                    StringBuilder sb = new StringBuilder();
+                    for (String s : split) {
+                        s = getConvertedAddress(s);
+                        sb.append(s).append(" ");
+                    }
+                    tableRowCell.setValue(startCalculations(sb.toString()));
+                }
+            }
+        }
+    }
+
+    private String getConvertedAddress(String s) {
+        if (s.contains("R")) {
+            String[] rowColumnSplit = s.split("C");
+            String row2 = rowColumnSplit[0].substring(1); // posle da prenapisha
+            if (Integer.parseInt(row2) >= table.getRows().size()) {
+                return "0"; // po uslovie
+            }
+            String column = rowColumnSplit[1];
+            if (Integer.parseInt(column) >= table.getRows().get(Integer.parseInt(row2)).getCells().size()) {
+                return "0"; // po uslovie
+            }
+            Object value2 = table.getRows().get(Integer.parseInt(row2)).getCells().get(Integer.parseInt(column)).getValue(); // namira stoinostta po R i C
+
+            s = String.valueOf(value2);
+//            if (!typeChecker.checkInteger(s) || !typeChecker.checkDouble(s)) {
+//                return "0"; // po uslovie
+//
+//            }
+        }
+        return s;
     }
 
 }

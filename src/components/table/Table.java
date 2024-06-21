@@ -9,10 +9,20 @@ import java.util.List;
 public class Table {
     private List<Row> rows;
     private final TypeChecker typeChecker;
+    private String filePath;
 
     public Table(TypeChecker typeChecker) {
         this.typeChecker = typeChecker;
+        this.filePath = null;
         this.rows = new ArrayList<>();
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public List<Row> getRows() {
