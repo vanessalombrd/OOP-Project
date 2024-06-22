@@ -18,10 +18,10 @@ public class Formula1 {
 
     public Object startCalculations(String expression) {
         String rpn = infixToPostfix(expression);
-        System.out.println("Infix: " + expression);
-        System.out.println("Postfix: " + rpn);
+//        System.out.println("Infix: " + expression);
+//        System.out.println("Postfix: " + rpn);
         double result = evaluateRPN(rpn);
-        System.out.println("Evaluation: " + result);
+//        System.out.println("Evaluation: " + result);
         if (Double.isInfinite(result)) return "ERROR";
         return result;
     }

@@ -45,13 +45,9 @@ public class MenuInvoker {
             input[0] = input[0].toUpperCase(); //  za da go prevurne v enum
             TypeOfCommand command = TypeOfCommand.valueOf(input[0]);
 
-            if (input[0].equalsIgnoreCase("EXIT")) {
-                break; // exit
-            }
-
             if (menu.containsKey(command)) {
                 menu.get(command).execute(input);
-                System.out.println("Enter new option:");
+                System.out.print("> ");
             } else {
                 throw new Exception("Command Error, try again");
             }

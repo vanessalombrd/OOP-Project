@@ -12,6 +12,7 @@ public class EditCommand implements Command {
 
     @Override
     public void execute(String[] data) {
+        System.out.println("Editing success");
         editor.edit(Integer.parseInt(data[1]), Integer.parseInt(data[2]),Integer.parseInt(data[3]));
     }
 }
