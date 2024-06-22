@@ -23,10 +23,10 @@ public class TypeChecker {
         String s = String.valueOf(o);
         s = s.replaceAll("\\\"", "\"");
         s = s.replaceAll("\\\\", "");
-        if(s.isEmpty()){
+        if (s.isEmpty()) {
             return s;
         }
-        s= s.substring(1,s.length()-1);
+        s = s.substring(1, s.length() - 1);
         return s;
 
     }

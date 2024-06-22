@@ -3,6 +3,7 @@ package menu;
 import checker.TypeChecker;
 import components.table.Table;
 import fileOperations.TextFileReader;
+import fileOperations.TextFileWriter;
 import functions.Editor;
 import functions.Formula1;
 import functions.Printer;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 
 public class MenuInvoker {
     private final Table table;
-    private Formula1 formula1;
+    private final Formula1 formula1;
     private final Map<TypeOfCommand, Command> menu = new HashMap<>();
 
     public MenuInvoker() {
@@ -28,10 +29,10 @@ public class MenuInvoker {
         menu.put(TypeOfCommand.PRINT, new PrintCommand(new Printer(table), formula1));
         menu.put(TypeOfCommand.HELP, new HelpCommand());
         menu.put(TypeOfCommand.OPEN, new OpenCommand(new TextFileReader(new TypeChecker()), table));
-//        menu.put(TypeOfCommand.CLOSE, new CloseCommand(AAAA));
-//        menu.put(TypeOfCommand.EXIT, new ExitCommand(AAA));
-//        menu.put(TypeOfCommand.SAVE, new SaveCommand(AAA));
-//        menu.put(TypeOfCommand.SAVEAS, new SaveAsCommand(AAAA));
+        menu.put(TypeOfCommand.CLOSE, new CloseCommand(table));
+        menu.put(TypeOfCommand.EXIT, new ExitCommand());
+        menu.put(TypeOfCommand.SAVE, new SaveCommand(new TextFileWriter(), table));
+        menu.put(TypeOfCommand.SAVEAS, new SaveAsCommand(new TextFileWriter(), table));
     }
 
     public void run() throws Exception {
@@ -39,7 +40,7 @@ public class MenuInvoker {
 
         Scanner scanner = new Scanner(System.in);
 
-        while(true) {
+        while (true) {
             String[] input = scanner.nextLine().split("\\s");
             input[0] = input[0].toUpperCase(); //  za da go prevurne v enum
             TypeOfCommand command = TypeOfCommand.valueOf(input[0]);

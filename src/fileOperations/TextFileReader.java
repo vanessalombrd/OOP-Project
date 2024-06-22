@@ -79,9 +79,7 @@ public class TextFileReader implements Reader {
                 cells.add(new Cell<>(typeChecker.checkString(s)));
             } else if (String.valueOf(s).startsWith("=")) {
                 cells.add(new Cell<>(s));
-            }
-
-            else {
+            } else {
                 System.out.printf("Error: row %d, col %d, %s is unknown data type%n", row, column, s);
             }
             column++;

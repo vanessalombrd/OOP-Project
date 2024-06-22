@@ -2,7 +2,7 @@ package components.cell;
 
 import checker.TypeChecker;
 
-public class Cell <T> {
+public class Cell<T> {
     private CellType cellType;
     private T value;
     private final TypeChecker typeChecker;

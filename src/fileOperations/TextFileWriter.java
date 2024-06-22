@@ -7,7 +7,7 @@ import components.table.Table;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class TextFileWriter implements Writer{
+public class TextFileWriter implements Writer {
     @Override
     public void write(String file, Table table) {
         try (FileWriter fileWriter = new FileWriter(file)) {

@@ -5,8 +5,8 @@ import fileOperations.Reader;
 import menu.Command;
 
 public class OpenCommand implements Command {
-    private Reader reader;
-    private Table table;
+    private final Reader reader;
+    private final Table table;
 
     public OpenCommand(Reader reader, Table table) {
         this.reader = reader;
@@ -15,6 +15,7 @@ public class OpenCommand implements Command {
 
     /**
      * proba
+     *
      * @param data
      */
     @Override

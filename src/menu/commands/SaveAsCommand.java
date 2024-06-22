@@ -5,8 +5,8 @@ import fileOperations.Writer;
 import menu.Command;
 
 public class SaveAsCommand implements Command {
-    private Writer writer;
-    private Table table;
+    private final Writer writer;
+    private final Table table;
 
     public SaveAsCommand(Writer writer, Table table) {
         this.writer = writer;
@@ -16,5 +16,6 @@ public class SaveAsCommand implements Command {
     @Override
     public void execute(String[] data) {
         writer.write(data[1], table);
+        System.out.println("Successfully saved as " + data[1]);
     }
 }
