@@ -1,6 +1,7 @@
 package fileOperations;
 
-import checker.TypeChecker;
+import checker0.TypeChecker0;
+import components.cell.typeChecker.TypeChecker;
 import components.table.Table;
 import components.cell.Cell;
 import components.row.Row;
@@ -12,10 +13,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextFileReader implements Reader {
-    private final TypeChecker typeChecker;
+    private final TypeChecker0 typeChecker0;
+    private TypeChecker typeChecker;
 
-    public TextFileReader(TypeChecker typeChecker) {
-        this.typeChecker = typeChecker;
+    public TextFileReader(TypeChecker0 typeChecker0) {
+        this.typeChecker0 = typeChecker0;
     }
 
     @Override
@@ -71,12 +73,12 @@ public class TextFileReader implements Reader {
         List<Cell<Object>> cells = new ArrayList<>();
         int column = 1;
         for (Object s : split) {
-            if (typeChecker.checkInteger(s)) {
+            if (typeChecker0.checkInteger(s)) {
                 cells.add(new Cell<>(Integer.parseInt(String.valueOf(s))));
-            } else if (typeChecker.checkDouble(s)) {
+            } else if (typeChecker0.checkDouble(s)) {
                 cells.add(new Cell<>(Double.parseDouble(String.valueOf(s))));
             } else if (String.valueOf(s).startsWith("\"") && String.valueOf(s).endsWith("\"") || String.valueOf(s).isEmpty()) {
-                cells.add(new Cell<>(typeChecker.checkString(s)));
+                cells.add(new Cell<>(typeChecker0.checkString(s)));
             } else if (String.valueOf(s).startsWith("=")) {
                 cells.add(new Cell<>(s));
             } else {

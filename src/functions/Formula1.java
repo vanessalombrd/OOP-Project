@@ -1,6 +1,6 @@
 package functions;
 
-import checker.TypeChecker;
+import checker0.TypeChecker0;
 import components.cell.Cell;
 import components.row.Row;
 import components.table.Table;
@@ -9,10 +9,10 @@ import java.util.Stack;
 
 public class Formula1 {
     private final Table table;
-    private final TypeChecker typeChecker; // moje da go mahna
+    private final TypeChecker0 typeChecker0; // moje da go mahna
 
     public Formula1(Table table) {
-        this.typeChecker = new TypeChecker();
+        this.typeChecker0 = new TypeChecker0();
         this.table = table;
     }
 

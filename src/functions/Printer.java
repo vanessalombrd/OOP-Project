@@ -7,10 +7,14 @@ import components.table.Table;
 import java.util.List;
 
 public class Printer {
-    private Table table;
+    private final Table table;
 
     public Printer(Table table) {
         this.table = table;
+    }
+
+    public Table getTable() {
+        return table;
     }
 
     public void print() {

@@ -25,8 +25,12 @@ public class CloseCommand implements Command {
      */
     @Override
     public void execute(String[] data) {
-        String path = table.getFilePath();
-        table.setFilePath(null);
-        System.out.println(Messages.FILE_SUCCESS("closed", path));
+        if (table.getFilePath() != null) {
+            String path = table.getFilePath();
+            table.setFilePath(null);
+            System.out.println(Messages.FILE_SUCCESS("closed", path));
+        } else {
+            System.out.println("No file opened");
+        }
     }
 }

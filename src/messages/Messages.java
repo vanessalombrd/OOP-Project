@@ -13,6 +13,10 @@ public class Messages {
         return "Unexpected error occurred when " + particularCommand_ING + " the file";
     }
 
+    public static String ERROR() {
+        return "Unexpected error occurred";
+    }
+
     /**
      * Съобщение, което преизползва част от текста,
      * който се съдържа при успех на командите
@@ -23,7 +27,7 @@ public class Messages {
      * @return цялото съобщение
      */
     public static String FILE_SUCCESS(String particularCommand_ED, String fileName) {
-        return "Successfully " + particularCommand_ED + " file " + fileName;
+        return "Successfully " + particularCommand_ED + " " + fileName;
     }
 
     public static String NOT_INTEGER() {

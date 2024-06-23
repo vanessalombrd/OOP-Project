@@ -1,5 +1,6 @@
 package menu.commands;
 
+import exceptions.ClosedFileException;
 import functions.Formula1;
 import functions.Printer;
 import menu.Command;
@@ -27,12 +28,17 @@ public class PrintCommand implements Command {
      * @param data масив от частите на командата
      */
     @Override
-    public void execute(String[] data) {
-        try {
-            formula1.calculator();
-            printer.print();
-        } catch (Exception e) {
-            System.out.println(Messages.ERROR("printing"));
+    public void execute(String[] data) throws ClosedFileException {
+        if (printer.getTable().getFilePath() == null) {
+            throw new ClosedFileException();
+        } else {
+            try {
+                formula1.calculator();
+                printer.print();
+            } catch (Exception e) {
+                System.out.println(Messages.ERROR("printing"));
+            }
         }
+
     }
 }

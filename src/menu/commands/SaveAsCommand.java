@@ -1,6 +1,7 @@
 package menu.commands;
 
 import components.table.Table;
+import exceptions.ClosedFileException;
 import fileOperations.Writer;
 import menu.Command;
 import messages.Messages;
@@ -27,15 +28,19 @@ public class SaveAsCommand implements Command {
      * @param data масив от частите на командата
      */
     @Override
-    public void execute(String[] data) {
-        try {
-            String newFile = data[1];
-            writer.write(newFile, table);
-            System.out.println(Messages.FILE_SUCCESS("saved another", newFile));
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(Messages.OUT_OF_BOUNDS());
-        } catch (Exception e) {
-            System.out.println(Messages.ERROR("saving another"));
+    public void execute(String[] data) throws ClosedFileException {
+        if (table.getFilePath() == null) {
+            throw new ClosedFileException();
+        } else {
+            try {
+                String newFile = data[1];
+                writer.write(newFile, table);
+                System.out.println(Messages.FILE_SUCCESS("saved another", newFile));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(Messages.OUT_OF_BOUNDS());
+            } catch (Exception e) {
+                System.out.println(Messages.ERROR("saving another"));
+            }
         }
     }
 }

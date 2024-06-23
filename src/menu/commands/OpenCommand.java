@@ -47,6 +47,8 @@ public class OpenCommand implements Command {
                     System.out.println(Messages.CREATE_FILE_FAIL(fileName));
                 }
             }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(Messages.OUT_OF_BOUNDS());
         } catch (Exception e) {
             System.out.println(Messages.ERROR("opening"));
         }

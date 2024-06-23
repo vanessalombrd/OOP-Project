@@ -1,6 +1,7 @@
 package menu.commands;
 
 import components.table.Table;
+import exceptions.ClosedFileException;
 import fileOperations.Writer;
 import menu.Command;
 import messages.Messages;
@@ -27,12 +28,16 @@ public class SaveCommand implements Command {
      */
 
     @Override
-    public void execute(String[] data) {
-        try {
-            writer.write(table.getFilePath(), table);
-            System.out.println(Messages.FILE_SUCCESS("saved", table.getFilePath()));
-        } catch (Exception e) {
-            System.out.println(Messages.ERROR("saving"));
+    public void execute(String[] data) throws ClosedFileException {
+        if (table.getFilePath() == null) {
+            throw new ClosedFileException();
+        } else {
+            try {
+                writer.write(table.getFilePath(), table);
+                System.out.println(Messages.FILE_SUCCESS("saved", table.getFilePath()));
+            } catch (Exception e) {
+                System.out.println(Messages.ERROR("saving"));
+            }
         }
     }
 }

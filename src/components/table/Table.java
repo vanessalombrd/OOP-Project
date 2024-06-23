@@ -1,6 +1,6 @@
 package components.table;
 
-import checker.TypeChecker;
+import checker0.TypeChecker0;
 import components.row.Row;
 
 import java.util.ArrayList;
@@ -8,11 +8,11 @@ import java.util.List;
 
 public class Table {
     private List<Row> rows;
-    private final TypeChecker typeChecker;
+    private final TypeChecker0 typeChecker0;
     private String filePath;
 
-    public Table(TypeChecker typeChecker) {
-        this.typeChecker = typeChecker;
+    public Table(TypeChecker0 typeChecker0) {
+        this.typeChecker0 = typeChecker0;
         this.filePath = null;
         this.rows = new ArrayList<>();
     }
@@ -33,8 +33,8 @@ public class Table {
         this.rows = rows;
     }
 
-    public TypeChecker getTypeChecker() {
-        return typeChecker;
+    public TypeChecker0 getTypeChecker() {
+        return typeChecker0;
     }
 
     public void addRow(Row row) {

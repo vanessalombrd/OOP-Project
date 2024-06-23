@@ -1,6 +1,7 @@
 package menu.commands;
 
 import components.table.Table;
+import exceptions.ClosedFileException;
 import exceptions.NonexistentException;
 import functions.Editor;
 import menu.Command;
@@ -31,21 +32,28 @@ public class EditCommand implements Command {
      * @param data масив от частите на командата
      */
     @Override
-    public void execute(String[] data) {
-        try {
-            int row = Integer.parseInt(data[1]);
-            int column = Integer.parseInt(data[2]);
-            String newValue = data[3];
-            editor.edit(row, column, newValue);
-            System.out.println(Messages.FILE_SUCCESS("edited", table.getFilePath()));
-        } catch (NumberFormatException e) {
-            System.out.println(Messages.NOT_INTEGER());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(Messages.OUT_OF_BOUNDS(e.getMessage()));
-        } catch (NonexistentException e) {
-            System.out.println(e.getMessage() + " doesn't exist");
-        } catch (Exception e) {
-            System.out.println(Messages.ERROR("editing"));
+    public void execute(String[] data) throws ClosedFileException {
+        if (table.getFilePath() == null) {
+            throw new ClosedFileException();
+        } else {
+            try {
+                int row = Integer.parseInt(data[1]);
+                int column = Integer.parseInt(data[2]);
+                StringBuilder newValue = new StringBuilder();
+                for (int i = 3; i < data.length; i++) {
+                    newValue.append(data[i]);
+                }
+                editor.edit(row, column, newValue.toString());
+                System.out.println(Messages.FILE_SUCCESS("edited", table.getFilePath()));
+            } catch (NumberFormatException e) {
+                System.out.println(Messages.NOT_INTEGER());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(Messages.OUT_OF_BOUNDS(e.getMessage()));
+            } catch (NonexistentException e) {
+                System.out.println(e.getMessage() + " doesn't exist");
+            } catch (Exception e) {
+                System.out.println(Messages.ERROR("editing"));
+            }
         }
     }
 }
