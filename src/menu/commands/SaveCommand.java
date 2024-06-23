@@ -19,6 +19,9 @@ public class SaveCommand implements Command {
     }
 
     /**
+     * Writer-ът записва таблицата в нейния файл
+     * и по този начин промените се запазват.
+     * При непредвиден проблем се хвърля грешка.
      *
      * @param data масив от частите на командата
      */
@@ -27,7 +30,7 @@ public class SaveCommand implements Command {
     public void execute(String[] data) {
         try {
             writer.write(table.getFilePath(), table);
-            System.out.println();
+            System.out.println(Messages.FILE_SUCCESS("saved", table.getFilePath()));
         } catch (Exception e) {
             System.out.println(Messages.ERROR("saving"));
         }

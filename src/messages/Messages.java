@@ -26,6 +26,24 @@ public class Messages {
         return "Successfully " + particularCommand_ED + " file " + fileName;
     }
 
+    public static String NOT_INTEGER() {
+        return "One or more of the provided values not a valid integer";
+    }
+
+    public static String OUT_OF_BOUNDS() {
+        return "Insufficient data provided";
+    }
+
+    public static String OUT_OF_BOUNDS(String position) {
+        return "Insufficient data provided at " + position + ". position";
+    }
+
+
+
+
+
+
+
     public static String CREATE_FILE_SUCCESS(String fileName) {
         return "File " + fileName + " didn't exist but was created successfully";
     }
