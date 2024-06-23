@@ -2,7 +2,7 @@ package components.cell.typeChecker;
 
 import components.cell.CellType;
 
-public class DoubleTypeChecker implements TypeChecker {
+public class DoubleTypeChecker implements TypeChecker2 {
     @Override
     public boolean check(Object o) {
         try {
@@ -19,7 +19,7 @@ public class DoubleTypeChecker implements TypeChecker {
     }
 
     @Override
-    public void parse(Object o) {
-
+    public Object parse(Object o) {
+        return Double.parseDouble(String.valueOf(o));
     }
 }

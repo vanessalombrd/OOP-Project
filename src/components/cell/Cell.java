@@ -1,32 +1,39 @@
 package components.cell;
 
-import checker.TypeChecker;
+import components.cell.typeChecker.*;
+import components.cell.typeChecker.TypeChecker2;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cell<T> {
     private CellType cellType;
     private T value;
-    private final TypeChecker typeChecker;
+    private final Map<CellType, TypeChecker2> cellTypes = new HashMap<>();
 
     public Cell(T value) {
-        this.typeChecker = new TypeChecker();
+        fillCellTypes();
+
         setType(value);
         this.value = value;
     }
 
+    private void fillCellTypes() {
+        cellTypes.put(CellType.INTEGER, new IntegerTypeChecker());
+        cellTypes.put(CellType.DOUBLE, new DoubleTypeChecker());
+        cellTypes.put(CellType.NULL, new NullTypeChecker());
+        cellTypes.put(CellType.FORMULA, new FormulaTypeChecker());
+        cellTypes.put(CellType.STRING, new StringTypeChecker());
+    }
+
     private void setType(T value) {
-        if (typeChecker.checkInteger(value)) cellType = CellType.INTEGER;
-        else if (typeChecker.checkDouble(value)) cellType = CellType.DOUBLE;
-        else if (value == null || value == "") cellType = CellType.NULL;
-        else if (value instanceof String) {
-            String stringValue = (String) value;
-            if (stringValue.startsWith("=")) {
-                cellType = CellType.FORMULA;
-            } else {
-                cellType = CellType.STRING;
+        for (TypeChecker2 checker : cellTypes.values()) {
+            if (checker.check(value)) {
+                cellType = checker.getCellType();
+                return;
             }
-        } else {
-            throw new IllegalArgumentException("IllegalArgumentException");
         }
+        throw new IllegalArgumentException("No data type matched");
     }
 
     public CellType getCellType() {
@@ -40,5 +47,9 @@ public class Cell<T> {
     public void setValue(T value) {
         setType(value);
         this.value = value;
+    }
+
+    public Map<CellType, TypeChecker2> getCellTypes() {
+        return cellTypes;
     }
 }

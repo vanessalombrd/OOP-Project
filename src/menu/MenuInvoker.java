@@ -1,6 +1,6 @@
 package menu;
 
-import checker0.TypeChecker0;
+import checker.TypeChecker;
 import components.table.Table;
 import exceptions.ClosedFileException;
 import fileOperations.TextFileReader;
@@ -21,7 +21,7 @@ public class MenuInvoker {
     private final Map<TypeOfCommand, Command> menu = new HashMap<>();
 
     public MenuInvoker() {
-        this.table = new Table(new TypeChecker0());
+        this.table = new Table(new TypeChecker());
         this.formula1 = new Formula1(table);
         fillMenu();
     }
@@ -30,7 +30,7 @@ public class MenuInvoker {
         menu.put(TypeOfCommand.EDIT, new EditCommand(new Editor(table), table));
         menu.put(TypeOfCommand.PRINT, new PrintCommand(new Printer(table), formula1));
         menu.put(TypeOfCommand.HELP, new HelpCommand());
-        menu.put(TypeOfCommand.OPEN, new OpenCommand(new TextFileReader(new TypeChecker0()), table));
+        menu.put(TypeOfCommand.OPEN, new OpenCommand(new TextFileReader(new TypeChecker()), table));
         menu.put(TypeOfCommand.CLOSE, new CloseCommand(table));
         menu.put(TypeOfCommand.EXIT, new ExitCommand());
         menu.put(TypeOfCommand.SAVE, new SaveCommand(new TextFileWriter(), table));

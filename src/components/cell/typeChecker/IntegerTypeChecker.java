@@ -2,7 +2,7 @@ package components.cell.typeChecker;
 
 import components.cell.CellType;
 
-public class IntegerTypeChecker implements TypeChecker {
+public class IntegerTypeChecker implements TypeChecker2 {
     @Override
     public boolean check(Object o) {
         try {
@@ -19,9 +19,9 @@ public class IntegerTypeChecker implements TypeChecker {
     }
 
     @Override
-    public void parse(Object o) {
+    public Object parse(Object o) {
 //        try {
-            Integer.parseInt(String.valueOf(o));
+            return Integer.parseInt(String.valueOf(o));
 //        } catch (Exception ignored) {}
     }
 }

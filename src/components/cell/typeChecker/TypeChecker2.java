@@ -2,8 +2,8 @@ package components.cell.typeChecker;
 
 import components.cell.CellType;
 
-public interface TypeChecker {
+public interface TypeChecker2 {
     boolean check(Object o);
     CellType getCellType();
-    void parse(Object o);
+    Object parse(Object o);
 }

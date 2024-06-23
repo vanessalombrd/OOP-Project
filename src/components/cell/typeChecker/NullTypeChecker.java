@@ -2,7 +2,7 @@ package components.cell.typeChecker;
 
 import components.cell.CellType;
 
-public class NullTypeChecker implements TypeChecker {
+public class NullTypeChecker implements TypeChecker2 {
     @Override
     public boolean check(Object o) {
         return o == null || o.equals("");
@@ -14,7 +14,7 @@ public class NullTypeChecker implements TypeChecker {
     }
 
     @Override
-    public void parse(Object o) {
-
+    public Object parse(Object o) {
+        return null;
     }
 }

@@ -1,7 +1,6 @@
 package fileOperations;
 
-import checker0.TypeChecker0;
-import components.cell.typeChecker.TypeChecker;
+import checker.TypeChecker;
 import components.table.Table;
 import components.cell.Cell;
 import components.row.Row;
@@ -13,10 +12,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextFileReader implements Reader {
-    private final TypeChecker0 typeChecker0;
-    private TypeChecker typeChecker;
+    private final TypeChecker typeChecker0;
 
-    public TextFileReader(TypeChecker0 typeChecker0) {
+    public TextFileReader(TypeChecker typeChecker0) {
         this.typeChecker0 = typeChecker0;
     }
 

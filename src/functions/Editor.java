@@ -30,6 +30,10 @@ public class Editor {
     }
 
     private void parseValues(Object value, Cell<Object> cell) {
+//        CellType thisCellType = cell.getCellType();
+//        Object parsedValue = cell.getCellTypes().get(thisCellType).parse(value);
+//        cell.setValue(parsedValue);
+
         if (table.getTypeChecker().checkInteger(value)) {
             cell.setValue(Integer.parseInt(String.valueOf(value)));
         } else if (table.getTypeChecker().checkDouble(value)) {

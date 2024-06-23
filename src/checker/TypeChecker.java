@@ -1,8 +1,8 @@
-package checker0;
+package checker;
 
 import messages.Messages;
 
-public class TypeChecker0 {
+public class TypeChecker {
     public boolean checkDouble(Object o) {
         try {
             Double.parseDouble(String.valueOf(o));
