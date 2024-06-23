@@ -44,7 +44,7 @@ public class OpenCommand implements Command {
                 if (file.createNewFile()) {
                     System.out.println(Messages.CREATE_FILE_SUCCESS(fileName));
                 } else {
-                    System.out.println("File " + fileName + " doesn't exist and can't be created");
+                    System.out.println(Messages.CREATE_FILE_FAIL(fileName));
                 }
             }
         } catch (Exception e) {

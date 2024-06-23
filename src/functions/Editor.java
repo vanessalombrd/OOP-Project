@@ -3,17 +3,18 @@ package functions;
 import components.cell.Cell;
 import components.row.Row;
 import components.table.Table;
+import exceptions.NonexistentException;
 
 import java.util.List;
 
 public class Editor {
-    private Table table;
+    private final Table table;
 
     public Editor(Table table) {
         this.table = table;
     }
 
-    public void edit(int row, int column, Object newValue) { //GOTOVO
+    public void edit(int row, int column, Object newValue) throws Exception {
         if (row <= table.getRows().size() - 1) {
             Row row1 = table.getRows().get(row);
             List<Cell<Object>> cells = row1.getCells();
@@ -21,10 +22,10 @@ public class Editor {
                 Cell<Object> objectCell = cells.get(column);
                 parseValues(newValue, objectCell);
             } else {
-                System.out.println("Nqma takuv column, HAHA LOSER");
+                throw new NonexistentException("Column");
             }
         } else {
-            System.out.println("Nqma takava row, HAHA LOSER");
+            throw new NonexistentException("Row");
         }
     }
 

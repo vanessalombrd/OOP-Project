@@ -25,7 +25,7 @@ public class MenuInvoker {
     }
 
     private void fillMenu() {
-        menu.put(TypeOfCommand.EDIT, new EditCommand(new Editor(table)));
+        menu.put(TypeOfCommand.EDIT, new EditCommand(new Editor(table), table));
         menu.put(TypeOfCommand.PRINT, new PrintCommand(new Printer(table), formula1));
         menu.put(TypeOfCommand.HELP, new HelpCommand());
         menu.put(TypeOfCommand.OPEN, new OpenCommand(new TextFileReader(new TypeChecker()), table));
