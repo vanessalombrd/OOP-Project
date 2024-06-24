@@ -10,9 +10,9 @@ import exceptions.ClosedFileException;
  * </p>
  *
  * <pre>
- * {@code
+ * {
  * public class OpenCommand implements Command {
- *     @Override
+ *
  *     public void execute(String[] data) throws ClosedFileException {
  *         // Implementation of the open command
  *     }

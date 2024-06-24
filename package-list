@@ -1,9 +1,12 @@
 
 checker
 components.cell
+components.cell.typeChecker
 components.row
 components.table
+exceptions
 fileOperations
 functions
 menu
 menu.commands
+messages
