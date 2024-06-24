@@ -8,29 +8,50 @@ import messages.Messages;
 import java.io.File;
 
 /**
- * Зарежда съдържанието на даден файл.
- * Ако такъв не съществува се създава нов с празно съдържание.
- * Всички останали команди могат да се изпълняват само ако има успешно зареден файл.
- * Ако при зареждането на данните, приложението открие грешка,
- * то извежда подходящо съобщение за грешка и прекратява своето изпълнение.
+ * The {@code OpenCommand} class implements the {@code Command} interface to load the contents of a given file.
+ * <p>
+ * If the file does not exist, a new file with the specified name is created with empty content.
+ * All other commands can only be executed if a file has been successfully loaded.
+ * If an error occurs while loading the data, the application displays an appropriate error message and terminates.
+ * </p>
+ *
+ * <pre>
+ * {@code
+ * Table table = new Table(new TypeChecker());
+ * Reader reader = new TextFileReader(new TypeChecker());
+ * OpenCommand openCommand = new OpenCommand(reader, table);
+ * openCommand.execute(new String[] {"open", "data.csv"});
+ * }
+ * </pre>
+ *
+ * @version 1.0
+ * @since 2024-06-24
  */
-
 public class OpenCommand implements Command {
     private final Reader reader;
     private final Table table;
 
+    /**
+     * Constructs an {@code OpenCommand} with the specified {@link Reader} and {@link Table}.
+     *
+     * @param reader the reader to be used for reading the file
+     * @param table  the table to be populated with the file data
+     */
     public OpenCommand(Reader reader, Table table) {
         this.reader = reader;
         this.table = table;
     }
 
     /**
-     * Първо се проверява дали файлът съществува:
-     * 1. ако съществува - отваря се и се чете от рийдъра
-     * 2. ако не съществува - създава се нов файл с указаното име
-     * 3. хвърля грешка, ако се появи непредвиден проблем
+     * Executes the open command. This method performs the following steps:
+     * <ol>
+     *     <li>Checks if the file exists.</li>
+     *     <li>If the file exists, it is opened and read by the reader.</li>
+     *     <li>If the file does not exist, a new file with the specified name is created.</li>
+     *     <li>Throws an error if an unexpected problem occurs.</li>
+     * </ol>
      *
-     * @param data масив от частите на командата
+     * @param data an array of command parts
      */
     @Override
     public void execute(String[] data) {
